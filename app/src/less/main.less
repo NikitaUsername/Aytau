@@ -1,0 +1,36 @@
+@text-color: white;
+@primary-color: black;
+@component-background: #5c5245;
+@border-color-base: none;
+@disabled-color: white;
+@text-color-secondary: white;
+@icon-color: white;
+@heading-color: white;
+@link-color: white;
+@select-item-active-bg: rgb(141, 141, 141);
+@disabled-color: rgb(179, 179, 179);
+
+html,
+body,
+#root {
+    height: 100%;
+    background-image: url('../images/bg-pattern.png');
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+    --antd-wave-shadow-color: black;
+}
+
+.layoutAntd {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentAntd {
+    flex: 1 0 auto;
+}
+
+.footerAntd {
+    flex-shrink: 0;
+}
+
