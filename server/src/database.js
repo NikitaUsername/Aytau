@@ -9,7 +9,7 @@ const sequelize = new Sequelize(process.env.DATABASE_DATA_DB, process.env.USER_D
     //     // timezone: '+00:00',
     //     timezone: process.env.TIMEZONE,
     // },
-    // logging: false
+    logging: false
 });
 
 module.exports.db = sequelize;

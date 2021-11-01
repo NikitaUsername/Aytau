@@ -10,14 +10,30 @@ configure({
 
 class BookingStore {
 
+    stage = 1;
+
     minDate = moment().add(1, 'days').toDate();
-    startDate = moment().add(1, 'days');
-    endDate = moment().add(2, 'days');
-    nights = 1;
-    adults = 2;
-    children = 0;
-    options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    startDate = moment().add(1, 'days'); //дата заезда
+    endDate = moment().add(2, 'days');// дата выезда
+    nights = 1; //ночей
+    adults = 2; //взрослых
+    children = 0; //детей
+    room = undefined; //номер
+
+    personInfo = {
+        name: '',
+        surname: '',
+        fathersName: '',
+        email: '',
+        phone: '',
+        comment: ''
+    }
+
+    childrenOptions = [0, 1];
+    adultsOptions = [1, 2, 3];
     enableButton = true;
+
+    rooms = [];
 
     range = [{
         startDate: this.startDate.toDate(),
@@ -76,10 +92,22 @@ class BookingStore {
 
     changeAdults = (value) => {
         this.adults = value;
+        let arr = [];
+        for (let i = 0; i < 4; i++) {
+            if ((i + value) <= 3)
+                arr.push(i)
+        }
+        this.childrenOptions = arr;
     };
 
     changeChildren = (value) => {
         this.children = value;
+        let arr = [];
+        for (let i = 1; i < 4; i++) {
+            if ((i + value) <= 3)
+                arr.push(i)
+        }
+        this.adultsOptions = arr;
     };
 
     changeNights = (value) => {
@@ -94,6 +122,30 @@ class BookingStore {
         else
             this.enableButton = false;
     }
+
+    findRooms = async () => {
+        this.stage = 2;
+        let response = await fetch('/api/booking/getRooms');
+        this.rooms = await response.json();
+    }
+
+    chooseRoom = async (index) => {
+        this.room = index;
+        this.stage = 3;
+    }
+
+    goToStage = (stageNo) => {
+        if (stageNo < this.stage)
+            this.stage = stageNo
+    }
+
+    changeValue = (value, field) => {
+        this.personInfo[field] = value;
+    }
+
+    sendBookingRequest = () => {
+        console.log(this.personInfo)
+    }
 }
 
-export const BookingStoreContext = React.createContext(new BookingStore());
+export default BookingStore;

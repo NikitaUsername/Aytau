@@ -1,6 +1,12 @@
 import React from 'react';
 import logo from '../images/logotipAytau.jpg';
-import '../less/header.less'
+import '../less/header.less';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 
 function DefaultHeader(props) {
@@ -19,12 +25,13 @@ function DefaultHeader(props) {
                 </div>
                 <div className="col-lg-8 ms-auto navigationContainer__navigation">
                     <nav className='ms-auto' >
-                        <a href="#">ГЛАВНАЯ</a>
+                        <Link to="/">ГЛАВНАЯ</Link>
                         <a href="#">ШАЛЕ</a>
                         <a href="#">ГАЛЕРЕЯ</a>
                         <a href="#">СТРЕЛКОВЫЙ КЛУБ</a>
                         <a href="#">КОНТАКТЫ</a>
-                        <a href="#">БРОНИРОВАНИЕ</a>
+                        <Link to="/booking">БРОНИРОВАНИЕ</Link>
+                        {/* <a href="/booking">БРОНИРОВАНИЕ</a> */}
                     </nav>
                 </div>
             </div>

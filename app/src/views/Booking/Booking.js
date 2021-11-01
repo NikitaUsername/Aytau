@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { observer } from "mobx-react";
-import { DatePicker, InputNumber, Row, Col, Select, Button } from 'antd';
-import { BookingStoreContext } from '../../Stores/BookingStore';
+import { DatePicker, InputNumber, Row, Col, Select, Button, Input } from 'antd';
+import { useStores } from '../../useStores';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -9,12 +9,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import '../../less/booking.less'
 import * as locales from 'react-date-range/dist/locale';
 
-
+const { TextArea } = Input;
 
 const Booking = observer((props) => {
 
-    const store = React.useContext(BookingStoreContext);
-
+    const store = useStores().BookingStore;
 
     return (
         <div className="container booking">
@@ -46,8 +45,8 @@ const Booking = observer((props) => {
 
                             <Col span={8} >
                                 <p className='bookingSelect__selectorTitle' style={{ marginBottom: '5px' }}>Ночь</p>
-                                {/* <Select className='bookingSelect__nights' /> */}
                                 <InputNumber
+                                    className='bookingSelect__selector'
                                     min={1}
                                     step={1}
                                     value={store.nights}
@@ -76,7 +75,7 @@ const Booking = observer((props) => {
                                     className='bookingSelect__nights'
                                     onChange={store.changeAdults}
                                 >
-                                    {store.options.filter(e => e !== 0).map(e =>
+                                    {store.adultsOptions.filter(e => e !== 0).map(e =>
                                         <Select.Option key={`adlt-${e}`} value={e} >
                                             {`${e}`}
                                         </Select.Option >
@@ -89,8 +88,8 @@ const Booking = observer((props) => {
                                     value={store.children}
                                     onChange={store.changeChildren}
                                     className='bookingSelect__nights' >
-                                    {store.options.map(e =>
-                                        <Select.Option key={`adlt-${e}`} value={e} >
+                                    {store.childrenOptions.map(e =>
+                                        <Select.Option key={`chldr-${e}`} value={e} >
                                             {`${e}`}
                                         </Select.Option >
                                     )}
@@ -101,7 +100,7 @@ const Booking = observer((props) => {
                             </Col>
 
                             <Col span={8} >
-                                <Button disabled={!store.enableButton} className='bookingSelect__findButton' >
+                                <Button disabled={!store.enableButton} className='bookingSelect__findButton' onClick={store.findRooms} >
                                     Найти
                                 </Button>
                             </Col>
@@ -112,51 +111,149 @@ const Booking = observer((props) => {
                 <Col span={18}>
                     <div className="bookingStages">
                         <div className="bookingContainer">
-                            <div className='bookingStages__stage'>
-                                <span>
+                            <div onClick={_ => store.goToStage(1)} className='bookingStages__stage'>
+                                <span className={store.stage === 1 ? 'bookingStages__stage__currentStage' : ''}>
                                     1. Выберите дату в календаре
                                 </span>
                                 <i></i>
                             </div>
-                            <div className='bookingStages__stage'>
-                                <span>
+                            <div onClick={_ => store.goToStage(2)} className='bookingStages__stage'>
+                                <span className={store.stage === 2 ? 'bookingStages__stage__currentStage' : ''}>
                                     2. Выберите гостевой дом
                                 </span>
                             </div>
-                            <div className='bookingStages__stage'>
-                                <span>
+                            <div onClick={_ => store.goToStage(3)} className='bookingStages__stage'>
+                                <span className={store.stage === 3 ? 'bookingStages__stage__currentStage' : ''}>
                                     3. Сделайте заказ
                                 </span>
                             </div>
                             <div className='bookingStages__stage'>
-                                <span>
-                                    4. Подтверждение заказ
+                                <span className={store.stage === 4 ? 'bookingStages__stage__currentStage' : ''}>
+                                    4. Подтверждение заказа
                                 </span>
                             </div>
                         </div>
                     </div>
-                    {/* <Calendar
-                        disablePrevDates
-                        rightArrowCss="background: #c1c1c1;"
-                        leftArrowCss="background: #c1c1c1;"
-                        thCss="background:#353535;"
-                        globalCss="tr{background:#353535}"
-                        calendar-left-body="background:#353535"
-                        card="background:#353535"
-                    /> */}
-                    <DateRange
-                        minDate={store.minDate}
-                        className="bookingCalendar"
-                        months={2}
-                        direction="horizontal"
-                        onChange={e => store.changeRange(e.selection)}
-                        locale={locales.ru}
-                        ranges={store.range}
-                    />
+                    <div>
+                        {store.stage === 1 &&
+                            <DateRange
+                                minDate={store.minDate}
+                                className="bookingCalendar"
+                                months={2}
+                                direction="horizontal"
+                                onChange={e => store.changeRange(e.selection)}
+                                locale={locales.ru}
+                                ranges={store.range}
+                            />
+                        }
+                        {store.stage === 2 &&
+                            store.rooms.map((room, index) => (
+                                <Fragment key={room.id}>
+                                    <Row className='roomBlock'>
+                                        <Col span={8}>
+                                            <img style={{ width: '240px' }} src={room.image} />
+                                        </Col>
+                                        <Col span={16}>
+                                            <a className='roomBlock__text'>{room.name.toUpperCase()}</a>
+                                            <div className='roomBlock__info'>
+                                                <p>
+                                                    Макс. кол-во человек: &nbsp; <span className='roomBlock__info__values'>{room.places_qty} </span>
+                                                    / &nbsp; Завтрак включён: &nbsp; <span className='roomBlock__info__values'>Да </span>
+                                                    / &nbsp; Вид: &nbsp; <span className='roomBlock__info__values'>{room.view}</span>
+                                                </p>
+                                            </div>
+                                            <p className='roomBlock__description'>
+                                                ОПИСАНИЕ: {room.description.substr(0, 228)}...
+                                            </p>
+                                            <Row className='roomBlock__footer'>
+                                                <Col span={12}>
+                                                    <Button className='roomBlock__button' onClick={_ => store.chooseRoom(index)}>
+                                                        Выбрать этот номер
+                                                    </Button>
+                                                </Col>
+                                                <Col span={12}>
+                                                    <p className='roomBlock__priceWrap'>
+                                                        <p className='roomBlock__priceElement'>
+                                                            <span className='roomBlock__price'>Цена от</span>
+                                                            <span className='roomBlock__price__highlighted'>{room.price},00 / Ночь</span>
+                                                        </p>
+                                                        <p className='roomBlock__showPrice'>* просмотр итоговой стоимости</p>
+                                                    </p>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </Fragment>
+                            ))
+                        }
+                        {store.stage === 3 &&
+                            <Row className={'personInfo'}>
+                                <Col span={8}>
+                                    <div className={'personInfo__title'} >Имя *</div>
+                                    <div className={'personInfo__input'}>
+                                        <Input value={store.personInfo.name}
+                                            onChange={e => store.changeValue(e.target.value, 'name')} />
+                                    </div>
+                                </Col>
+                                <Col offset={1} span={8}>
+                                    <div className={'personInfo__title'}>Фамилия *</div>
+                                    <div className={'personInfo__input'}>
+                                        <Input value={store.personInfo.surname}
+                                            onChange={e => store.changeValue(e.target.value, 'surname')} />
+                                    </div>
+                                </Col>
+                                <Col span={7}>
+                                </Col>
+
+                                <Col span={8}>
+                                    <div className={'personInfo__title'} >Отчество *</div>
+                                    <div className={'personInfo__input'}>
+                                        <Input value={store.personInfo.fathersName}
+                                            onChange={e => store.changeValue(e.target.value, 'fathersName')} />
+                                    </div>
+                                </Col>
+
+                                <Col span={16}>
+                                </Col>
+
+                                <Col span={8}>
+                                    <div className={'personInfo__title'} >Email *</div>
+                                    <div className={'personInfo__input'}>
+                                        <Input value={store.personInfo.email}
+                                            onChange={e => store.changeValue(e.target.value, 'email')} />
+                                    </div>
+                                </Col>
+
+                                <Col offset={1} span={8}>
+                                    <div className={'personInfo__title'} >Телефон *</div>
+                                    <div className={'personInfo__input'}>
+                                        <Input
+                                            value={store.personInfo.phone}
+                                            onChange={e => store.changeValue(e.target.value, 'phone')} />
+                                    </div>
+                                </Col>
+
+                                <Col span={17}>
+                                    <div className={'personInfo__title'} >Дополнительный комментарий</div>
+                                    <div className={'personInfo__input'}>
+                                        <TextArea onChange={e => store.changeValue(e.target.value, 'comment')}
+                                            rows={5}
+                                            value={store.personInfo.comment}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col span={17}>
+                                    <Button onClick={store.sendBookingRequest} className='personInfo__button'>
+                                        Оставить заявку на бронь по E-mail
+                                    </Button>
+                                </Col>
+                            </Row>
+                        }
+                    </div>
                 </Col>
             </Row>
 
-        </div>
+        </div >
     )
 });
 
