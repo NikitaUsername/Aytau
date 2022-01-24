@@ -11,16 +11,18 @@ const Views = db.define('views', {
     type: {
         type: Sequelize.STRING,
     },
-    deleted_at: {
+    deletedAt: {
         type: Sequelize.DATE,
     },
-    created_at: {
+    createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
     },
+    updatedAt: {
+        type: Sequelize.DATE,
+    },
 },
     {
-        timestamps: false,
         freezeTableName: true
     }
 );

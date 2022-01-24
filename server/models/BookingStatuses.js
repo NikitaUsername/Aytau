@@ -1,31 +1,16 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const Views = require('./Views');
 const { db } = require(path.resolve(root + '/src/database.js'));
 
-const Rooms = db.define('rooms', {
+const BookingStatuses = db.define('booking_statuses', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
-        type: Sequelize.STRING,
-    },
-    description: {
-        type: Sequelize.STRING,
-    },
-    placesQty: {
-        type: Sequelize.INTEGER,
-    },
-    viewId: {
-        type: Sequelize.INTEGER,
-    },
-    price:{
-        type: Sequelize.DECIMAL(20,2),
-    },
-    image: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
+        allowNull: false,
     },
     deletedAt: {
         type: Sequelize.DATE,
@@ -37,7 +22,10 @@ const Rooms = db.define('rooms', {
     updatedAt: {
         type: Sequelize.DATE,
     },
-});
+},
+    {
+        freezeTableName: true
+    }
+);
 
-Rooms.belongsTo(Views, { foreignKey: 'viewId' });
-module.exports = Rooms;
+module.exports = BookingStatuses;

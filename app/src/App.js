@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import React from 'react';
 import { Layout } from 'antd';
 import './App.less';
-import './less/main.less'
+import BookingComplete from "./views/Booking/BookingComplete";
 
-const { Footer } = Layout;
+const { Footer, Content } = Layout;
 
 
 const Booking = React.lazy(() => import('./views/Booking/Booking'));
@@ -20,15 +20,18 @@ function App() {
         <div className='layoutAntd'>
 
           <DefaultHeader />
-          <Switch>
-            <Route path='/booking'>
-              <Booking />
-            </Route>
-          </Switch>
+          <Content className='contentAntd'>
 
-          {/* <Content className='contentAntd'>
-          </Content> */}
-          <Footer className='footerAntd'>
+            <Switch>
+              <Route exact path='/booking'>
+                <Booking />
+              </Route>
+              <Route path='/booking/complete'>
+                <BookingComplete />
+              </Route>
+            </Switch>
+          </Content>
+          <Footer className='container-xxl footerAntd' style={{ backgroundColor: '#1e1e1e' }}>
             Footer
           </Footer>
         </div >

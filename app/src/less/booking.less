@@ -1,28 +1,14 @@
-.bookingTitle {
-    background: url(../images/page-title-dark.jpg) center;
-    padding: 70px 0px 30px;
-    position: relative;
-    z-index: 89;
-    text-align: center;
-    line-height: 1;
-}
+@block-bg: #3d372f;
+@dark-bg: #212121;
+@grey-color: #cccccc;
+@button-color: #967c61;
+@white: white;
 
-.bookingTitle__text {
-    font-weight: 300;
-    letter-spacing: 3px;
-    padding-top: 100px;
-    padding-bottom: 50px;
-    width: fit-content;
-    color: #fff;
-}
 
-.bookingMain {
-    background-color: #38322e;
-}
 
 .bookingSelect,
 .bookingStages {
-    background-color: #3d372f;
+    background-color: @block-bg;
     font-size: 16px;
     margin-top: 55px;
     border-radius: 3px;
@@ -32,7 +18,7 @@
 //__________________Booking select____________________ 
 
 .bookingSelect__title {
-    background-color: #3d372f;
+    background-color: @block-bg;
     letter-spacing: 1px;
     font-size: 16px;
     width: fit-content;
@@ -44,23 +30,56 @@
     margin: 0;
 }
 
-.bookingSelect__nights,
-.bookingSelect__dateSelect {
+.bookingSelect__description {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 13px;
+    color: @grey-color;
     width: 100%;
 }
 
-.bookingSelect__selectorTitle {
+.bookingSelect__total {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.bookingSelect__total__left {
+    margin-left: 20px;
+}
+
+.bookingSelect__total__right {
+    margin-right: 20px;
+}
+
+.bookingSelect__room {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.bookingSelect__details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.bookingSelectors__selectorTitle {
     font-size: 12px;
+    margin-bottom: 5px;
 }
 
-.bookingSelect__selector {
+.bookingSelectors__selector {
     background-color: #5c5245 !important;
+    width: 100%;
 }
 
-.bookingSelect__findButton {
+.bookingSelectors__findButton {
     margin-top: 15px;
     margin-bottom: 15px;
-    background-color: #967c61;
+    background-color: @button-color;
 }
 
 // __________________Booking stages___________________
@@ -86,15 +105,14 @@
     content: '';
     position: absolute;
     padding: 15px;
-    -webkit-box-shadow: 2px -2px #967c61;
+    -webkit-box-shadow: 2px -2px @button-color;
     border: solid transparent;
     transform: rotate(45deg) translateY(-7px);
 }
 
 .bookingStages__stage__currentStage {
-    color: #fff;
+    color: @white;
 }
-
 
 //____________________________________________
 
@@ -113,9 +131,12 @@
     border-radius: 3px;
 }
 
+.rdrDayDisabled {
+    background-color: #1c1c1c;
+}
+
 .rdrDayNumber span {
     color: white;
-
 }
 
 .rdrDayPassive .rdrDayNumber span {
@@ -129,6 +150,22 @@ div.rdrMonths {
 .bookingCalendar {
     margin-bottom: 55px;
     margin-top: 20px;
+}
+
+.rdrStartEdge,
+.rdrEndEdge,
+.rdrDateDisplay,
+.rdrDayStartPreview,
+.rdrDayEndPreview,
+.rdrDayInPreview,
+.rdrDay,
+.rdrDayHovered,
+.rdrInRange {
+    color: @button-color  !important;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+    background: @button-color;
 }
 
 //____________________second_stage______________________
@@ -158,7 +195,7 @@ div.rdrMonths {
     border-style: solid;
     padding: 10px 20px;
     border-color: #3a3a3a;
-    color: #ffffff;
+    color: @white;
     font-weight: bold;
 }
 
@@ -178,7 +215,7 @@ div.rdrMonths {
     padding: 0;
     cursor: pointer;
     border-color: #3a3a3a;
-    color: #cccccc;
+    color: @grey-color;
     line-height: 1.7;
 }
 
@@ -190,7 +227,7 @@ div.rdrMonths {
 .roomBlock__button {
     font-weight: bold;
     font-style: italic;
-    background-color: #967c61;
+    background-color: @button-color;
     font-size: 13px;
     height: 100%;
 }
@@ -198,7 +235,7 @@ div.rdrMonths {
 .roomBlock__button:hover {
     font-weight: bold;
     font-style: italic;
-    background-color: #967c61;
+    background-color: @button-color;
 }
 
 
@@ -219,7 +256,7 @@ div.rdrMonths {
     font-size: 15px;
     margin-right: 10px;
     font-style: italic;
-    color: #cccccc;
+    color: @grey-color;
 }
 
 .roomBlock__price__highlighted {
@@ -233,7 +270,7 @@ div.rdrMonths {
     margin-bottom: 0;
     font-size: 12px;
     cursor: pointer;
-    color: #cccccc;
+    color: @grey-color;
 }
 
 //_______________third_stage_________________
@@ -246,18 +283,57 @@ div.rdrMonths {
     font-style: italic;
     margin-bottom: 7px;
     font-size: 13px;
-    color: #cccccc;
+    color: @grey-color;
 }
 
 .personInfo__input {
     margin-bottom: 20px;
 }
 
+.personInfo__transfer {
+    margin: 10px 0;
+}
+
 .personInfo__button {
     width: 100%;
-    background-color: #967c61;
+    background-color: @button-color;
     font-weight: bold;
     font-style: italic;
     height: 50px;
     margin-bottom: 50px;
+}
+
+.personInfo__alert {
+    color: red;
+    margin-bottom: 20px;
+}
+
+//_____________________stage 4________________
+
+.successBox {
+    background-color: @dark-bg;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.successBox__title {
+    margin-left: 30px;
+    margin-top: 30px;
+    color: #8f8f8f;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.successBox__text {
+    margin-left: 30px;
+    margin-top: 10px;
+    color: @grey-color;
+}
+
+.successBox__contacts {
+    margin-top: 20px;
+    margin-left: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
 }

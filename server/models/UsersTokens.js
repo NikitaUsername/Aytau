@@ -1,31 +1,20 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const Views = require('./Views');
 const { db } = require(path.resolve(root + '/src/database.js'));
 
-const Rooms = db.define('rooms', {
+const UsersTokens = db.define('users_tokens', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
-        type: Sequelize.STRING,
-    },
-    description: {
-        type: Sequelize.STRING,
-    },
-    placesQty: {
+    userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
     },
-    viewId: {
+    token: {
         type: Sequelize.INTEGER,
-    },
-    price:{
-        type: Sequelize.DECIMAL(20,2),
-    },
-    image: {
-        type: Sequelize.STRING,
+        allowNull: false,
     },
     deletedAt: {
         type: Sequelize.DATE,
@@ -39,5 +28,4 @@ const Rooms = db.define('rooms', {
     },
 });
 
-Rooms.belongsTo(Views, { foreignKey: 'viewId' });
-module.exports = Rooms;
+module.exports = UsersTokens;
