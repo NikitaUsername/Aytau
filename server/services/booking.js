@@ -14,7 +14,7 @@ const moment = require('moment')
 module.exports.getRooms = async (req, res) => {
     let start = new Date(moment(req.body.start));
     let end = new Date(moment(req.body.end));
-    
+
     let bookings = await Bookings.findAll({
         attributes: ['roomId'],
         where: {
@@ -101,6 +101,9 @@ module.exports.getRequests = async (req, res) => {
     };
 
     let data = await Bookings.findAll({
+        order: [
+            ['statusId', 'ASC']
+        ],
         where: {
             deletedAt: null,
         },

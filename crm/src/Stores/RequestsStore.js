@@ -49,6 +49,11 @@ class RequestsStore {
             title: 'Дата выезда',
             dataIndex: 'endDate'
         },
+        {
+            title: 'Сумма',
+            dataIndex: 'totalAmount',
+            render: (value) => value.toFixed(2)
+        },
         // {
         //     title: 'Отчество',
         //     dataIndex: 'fathersName'
@@ -87,9 +92,14 @@ class RequestsStore {
             }
         }
     ];
+    isModalRequestOpen = false;
+    currentRequest = {};
+    isRequestEdit = false;
+    editableRequest = {};
 
-    constructor() {
+    constructor(mainStore) {
         makeAutoObservable(this, {}, { deep: true });
+        this.mainStore = mainStore;
     }
 
     showNotification = (type, text) => {
@@ -101,8 +111,13 @@ class RequestsStore {
 
     getRequests = async () => {
         this.loaded = false;
-        let response = await $api.get('/api/booking/getRequests');
-        this.requests = response.data.data;
+        try {
+            let response = await $api.get('/api/booking/getRequests');
+            this.requests = response.data.data;
+        } catch (e) {
+            if (e.status === 401)
+                this.mainStore.logOut(true);
+        }
         this.loaded = true;
     }
 
@@ -112,7 +127,6 @@ class RequestsStore {
             statusId: statusId,
             email: email
         }
-
         let response = await $api.post('/api/booking/changeStatus', body);
         if (response.data.success) {
             this.showNotification('success', 'Статус заявки изменен!')
@@ -121,6 +135,26 @@ class RequestsStore {
             this.showNotification('error', 'Ошибка!')
         }
     };
+
+    openRequest = async (idx) => {
+        console.log(idx)
+        this.currentRequest = this.requests[idx];
+        this.isModalRequestOpen = true;
+    }
+
+    closeRequestModal = () => {
+        this.isModalRequestOpen = false;
+    }
+
+    editRequest = () => {
+        this.isRequestEdit = true;
+        this.editableRequest = this.currentRequest;
+    }
+
+    saveRequest = () => {
+        this.isRequestEdit = false;
+        // this.editableRequest = this.currentRequest;
+    }
 
 }
 

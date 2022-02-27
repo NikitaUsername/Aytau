@@ -3,9 +3,10 @@ import MainStore from './MainStore'
 import RequestsStore from './RequestsStore';
 import BookingsStore from './BookingsStore';
 
+const mainStore = new MainStore();
 
 export const storesContext = React.createContext({
-    MainStore: new MainStore(),
-    RequestsStore: new RequestsStore(),
+    MainStore: mainStore,
+    RequestsStore: new RequestsStore(mainStore),
     BookingsStore: new BookingsStore()
 })

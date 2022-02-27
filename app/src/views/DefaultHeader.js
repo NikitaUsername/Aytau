@@ -30,8 +30,7 @@ function DefaultHeader(props) {
                         <a href="#">ГАЛЕРЕЯ</a>
                         <a href="#">СТРЕЛКОВЫЙ КЛУБ</a>
                         <a href="#">КОНТАКТЫ</a>
-                        <Link to="/booking">БРОНИРОВАНИЕ</Link>
-                        {/* <a href="/booking">БРОНИРОВАНИЕ</a> */}
+                        <Link to="/booking">ЗАЯВКА НА АРЕНДУ</Link>
                     </nav>
                 </div>
             </div>

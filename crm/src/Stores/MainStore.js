@@ -20,14 +20,15 @@ class MainStore {
             this.isLoading = false;
             return;
         }
-
-        const response = await axios.get('/api/auth/refresh', { withCredentials: true });
-        if (response.status !== 200) {
-            this.showNotification('error', response.statusText);
-        } else {
-            this.user = response.data.user;
-            this.isAuth = true;
-            localStorage.setItem('token', response.data.tokens.accessToken)
+        try {
+            const response = await axios.get('/api/auth/refresh', { withCredentials: true });
+            if (response.status === 200) {
+                this.user = response.data.user;
+                this.isAuth = true;
+                localStorage.setItem('token', response.data.tokens.accessToken)
+            }
+        } catch (e) {
+            this.showNotification('error', e.response.statusText);
         }
         this.isLoading = false;
     }
@@ -49,7 +50,7 @@ class MainStore {
     logIn = async () => {
         let response = await $api.post('/api/auth/login', { email: this.email, password: this.password });
         if (response.status !== 200) {
-            this.showNotification('error', response.statusText);
+            this.showNotification('error', response.data);
         } else {
             this.user = response.data.user;
             this.isAuth = true;
@@ -63,12 +64,16 @@ class MainStore {
         console.log(response)
     }
 
-    logOut = async () => {
+    logOut = async (expired = false) => {
         localStorage.removeItem('token');
         let response = await $api.get('/api/auth/logout', { email: this.email, password: this.password });
         if (response.data) {
             this.isAuth = false;
             this.user = undefined;
+            this.password = '';
+            this.email = '';
+            if (expired)
+                this.showNotification('info', 'Время сессии истекло!')
         }
     }
 

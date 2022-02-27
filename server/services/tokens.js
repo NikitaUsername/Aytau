@@ -5,8 +5,8 @@ const secretRefreshKey = process.env.JWT_SECRET_REFRESH_KEY;
 
 
 module.exports.generateTokens = (payload) => {
-    const accessToken = jwt.sign(payload, secretKey, { expiresIn: '1m' });
-    const refreshToken = jwt.sign(payload, secretRefreshKey, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, secretKey, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, secretRefreshKey, { expiresIn: '30d' });
     return {
         accessToken,
         refreshToken

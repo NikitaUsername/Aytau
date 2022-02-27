@@ -12,7 +12,7 @@ const Main = observer((props) => {
             <p className='userName'>
                 {store?.user?.name}&nbsp;{store?.user?.surname}
             </p>
-            <Button onClick={store.logOut}>
+            <Button onClick={_ => store.logOut()}>
                 Выйти
             </Button>
         </div>

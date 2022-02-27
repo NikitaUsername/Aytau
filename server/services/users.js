@@ -74,7 +74,7 @@ module.exports.refresh = async (req, res) => {
 
     try {
         if (!refreshToken) {
-            throw '';
+            throw 'no refresh token';
         }
         const userData = validateRefreshToken(refreshToken);
         const tokenData = await UsersTokens.findOne({
@@ -84,7 +84,7 @@ module.exports.refresh = async (req, res) => {
         });
 
         if (!userData || !tokenData) {
-            throw '';
+            throw 'refresh expired';
         };
 
         const user = await Users.findByPk(userData.id,

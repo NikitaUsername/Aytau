@@ -18,11 +18,11 @@ const Booking = observer((props) => {
 
     return (
         <div className="container-xxl booking">
-            <Title mainTitle={'БРОНИРОВАНИЕ'} />
+            <Title mainTitle={'ЗАЯВКА НА АРЕНДУ'} />
             <Row className="row bookingMain contentMain">
                 <Col span={6}>
                     <div className="bookingSelect">
-                        <div className="bookingSelect__title">Ваше бронирование</div>
+                        <div className="bookingSelect__title">Ваша заявка</div>
                         <hr className="bookingSelect__divide" />
                         {store.stage < 3 &&
                             <Row
@@ -130,6 +130,18 @@ const Booking = observer((props) => {
                                                         minimumFractionDigits: 2,
                                                         maximumFractionDigits: 2
                                                     })}
+                                            </span>
+                                        </p>
+                                        <p className='bookingSelect__details'>
+                                            <span>Дата заезда:</span>
+                                            <span className='bookingSelect__price'>
+                                             {store.startDate.format('DD.MM.YYYY')}
+                                            </span>
+                                        </p>
+                                        <p className='bookingSelect__details'>
+                                            <span>Дата выезда:</span>
+                                            <span className='bookingSelect__price'>
+                                             {store.endDate.format('DD.MM.YYYY')}
                                             </span>
                                         </p>
                                     </div>
@@ -309,9 +321,6 @@ const Booking = observer((props) => {
                                             value={store.personInfo.comment}
                                         />
                                     </div>
-                                    <p>
-                                        *При наличии промокода укажите его в дополнительном комментарии
-                                    </p>
                                 </Col>
                                 <Col span={17}>
                                     <div className="personInfo__alert" hidden={store.hideAlert}>
@@ -328,9 +337,9 @@ const Booking = observer((props) => {
                                 <Col xl={17} lg={24} >
                                     <div className='successBox'>
                                         <h3 className='successBox__title'>Успешное резервирование!</h3>
-                                        <p className='successBox__text'>Детали вашей заявки на бронирование только что были отправлены на E-Mail.
+                                        <p className='successBox__text'>Детали вашей заявки на аренду только что были отправлены на E-Mail.
                                             <br />
-                                            (Внимание! Заявка на бронирование не является гарантированным бронированием).
+                                            (Внимание! Заявка на аренду не является гарантированной арендой).
                                             <br />
                                             Если у Вас есть вопросы, пожалуйста, не стесняйтесь обращаться к нам. Спасибо!
                                         </p>

@@ -18,7 +18,7 @@ const BookingComplete = observer((props) => {
 
     return (
         <div className="container-xxl">
-            <Title mainTitle={'подтверждение бронирования'} />
+            <Title mainTitle={'подтверждение аренды'} />
             <Row className='row contentMain'>
                 {!store.booking ?
                     <Spin />
@@ -26,12 +26,12 @@ const BookingComplete = observer((props) => {
                     <Col>
                         {
                             store.bookingComplete ?
-                                <p>Ваше бронирование успешно подтверждено!</p>
+                                <p>Ваша аренда успешно подтверждена!</p>
                                 :
                                 <div>
                                     {store.booking.statusId === 3 ?
                                         <Button onClick={() => store.completeBooking(id)}>
-                                            Подтвердить бронирование
+                                            Подтвердить аренду
                                         </Button> :
                                         <p>
                                             Страница не найдена
