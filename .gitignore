@@ -1,3 +1,4 @@
 server/.env
 app/.env
+crm/.env
 .vscode/settings.json
