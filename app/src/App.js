@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import React from 'react';
 import { Layout } from 'antd';
 import './App.less';
@@ -15,7 +15,7 @@ const loading = () => <div className="animated fadeIn pt-3 text-center">Loading.
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.Suspense fallback={loading()}>
         <div className='layoutAntd'>
 
@@ -36,7 +36,7 @@ function App() {
           </Footer>
         </div >
       </React.Suspense>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

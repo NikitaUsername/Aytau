@@ -1,4 +1,11 @@
 server/.env
 app/.env
 crm/.env
+
+server/node_modules/
+app/node_modules/
+app/build/
+
+crm/node_modules/
+
 .vscode/settings.json
