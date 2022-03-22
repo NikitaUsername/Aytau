@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/Hotel/static/css/main.bcf9995d.chunk.css",
+    "main.js": "/Hotel/static/js/main.15d5de84.chunk.js",
+    "main.js.map": "/Hotel/static/js/main.15d5de84.chunk.js.map",
+    "runtime-main.js": "/Hotel/static/js/runtime-main.b04eb509.js",
+    "runtime-main.js.map": "/Hotel/static/js/runtime-main.b04eb509.js.map",
+    "static/js/2.3fb27906.chunk.js": "/Hotel/static/js/2.3fb27906.chunk.js",
+    "static/js/2.3fb27906.chunk.js.map": "/Hotel/static/js/2.3fb27906.chunk.js.map",
+    "static/css/3.093661d6.chunk.css": "/Hotel/static/css/3.093661d6.chunk.css",
+    "static/js/3.3797e4a9.chunk.js": "/Hotel/static/js/3.3797e4a9.chunk.js",
+    "static/js/3.3797e4a9.chunk.js.map": "/Hotel/static/js/3.3797e4a9.chunk.js.map",
+    "static/css/4.64d4b91d.chunk.css": "/Hotel/static/css/4.64d4b91d.chunk.css",
+    "static/js/4.34f4c80c.chunk.js": "/Hotel/static/js/4.34f4c80c.chunk.js",
+    "static/js/4.34f4c80c.chunk.js.map": "/Hotel/static/js/4.34f4c80c.chunk.js.map",
+    "static/css/5.f891314f.chunk.css": "/Hotel/static/css/5.f891314f.chunk.css",
+    "static/js/5.677129aa.chunk.js": "/Hotel/static/js/5.677129aa.chunk.js",
+    "static/js/5.677129aa.chunk.js.map": "/Hotel/static/js/5.677129aa.chunk.js.map",
+    "static/js/6.d9e24fae.chunk.js": "/Hotel/static/js/6.d9e24fae.chunk.js",
+    "static/js/6.d9e24fae.chunk.js.map": "/Hotel/static/js/6.d9e24fae.chunk.js.map",
+    "index.html": "/Hotel/index.html",
+    "static/css/3.093661d6.chunk.css.map": "/Hotel/static/css/3.093661d6.chunk.css.map",
+    "static/css/4.64d4b91d.chunk.css.map": "/Hotel/static/css/4.64d4b91d.chunk.css.map",
+    "static/css/5.f891314f.chunk.css.map": "/Hotel/static/css/5.f891314f.chunk.css.map",
+    "static/css/main.bcf9995d.chunk.css.map": "/Hotel/static/css/main.bcf9995d.chunk.css.map",
+    "static/js/3.3797e4a9.chunk.js.LICENSE.txt": "/Hotel/static/js/3.3797e4a9.chunk.js.LICENSE.txt",
+    "static/media/App.less": "/Hotel/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/logotipAytau.853b6f0e.jpg": "/Hotel/static/media/logotipAytau.853b6f0e.jpg",
+    "static/media/title.less": "/Hotel/static/media/page-title-dark.67bfd0d5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b04eb509.js",
+    "static/css/3.093661d6.chunk.css",
+    "static/js/3.3797e4a9.chunk.js",
+    "static/css/main.bcf9995d.chunk.css",
+    "static/js/main.15d5de84.chunk.js"
+  ]
+}
